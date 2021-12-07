@@ -174,7 +174,7 @@ def update_matrix(row_num,new_list):
 
 #print(unit_matrix_to_notation((new_matrix-old_matrix)))
 
-if __name__=="__main__": # for module testing ouly
+if __name__=="__main__": # for module testing only
 
 
     v=update_matrix(1,[0,1,1,1,1,1,1,1])
