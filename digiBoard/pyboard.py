@@ -1,8 +1,4 @@
 import numpy as np
-import chess
-
-
-board=chess.Board()
 
 old_matrix = np.array([[ 1, 1, 1, 1, 1, 1, 1, 1], 
                        [ 1, 1, 1, 1, 1, 1, 1, 1], 
@@ -21,27 +17,13 @@ new_matrix = np.array([[ 1, 1, 1, 1, 1, 1, 1, 1],
                        [ 0, 0, 0, 0, 0, 0, 0, 0],
                        [ 1, 1, 1, 1, 1, 1, 1, 1],
                        [ 1, 1, 1, 1, 1, 1, 1, 1]])
+                        #a  b  c  d  e  f  g  h 
 
-
-'''
-
-    8 [1,1,1,1,1,1,1,1],
-    7 [1,1,1,1,1,1,1,1],
-    6 [0,0,0,0,0,0,0,0],
-    5 [0,0,0,0,0,0,0,0],
-    4 [0,0,0,0,0,0,0,0],
-    3 [0,0,0,0,0,0,0,0],
-    2 [1,1,1,1,1,1,1,1],
-    1 [1,1,1,1,1,1,1,1]
-       a b c d e f g h 
-
-'''
 move=[]
 sign=[]
 
 
-
-           
+#.........................................................................................          
 def unit_matrix_to_notation(matrix):
     '''
     this function return chess notation based of position on 1 or -1 in a 2D array
@@ -73,6 +55,7 @@ def unit_matrix_to_notation(matrix):
 
     return [notation,sign_] # output formate [['d5', 'place']]
 
+#.........................................................................................
 
 def is_sufficent_move(a):
     # Check wether there is enough move or not
@@ -83,9 +66,7 @@ def is_sufficent_move(a):
     else:
         return False
 
-##################################################################
-################### DIFFERENT TYPE OF MOVES ######################
-##################################################################
+# make classes for moves
 
 #.....................Normal move.................................
 def normal_move():
@@ -102,9 +83,6 @@ def normal_move():
 #.....................Capture move................................
 def capture_move(): 
 
-
-
-
     #refer notes to understand this
     # this function work as intended but it is complete mess
     if move[1]==move[2]:
@@ -116,11 +94,8 @@ def capture_move():
     move.clear()
     sign.clear()
   
-
     return  to + from_ # this 
-    
 #.................................................................
-
 
 #.....................Castling....................................
 def castling():
@@ -138,30 +113,20 @@ def Pawn_Promotion():
     pass
 #.................................................................
 
-##################################################################
-##################################################################
-##################################################################
-
-
-
-
-
 def update_matrix(row_num,new_list):
 
-    old_matrix = np.copy(new_matrix)
+    old_matrix = np.copy(new_matrix)  # Copy old matrix
 
-    new_matrix[row_num]=new_list    # UPDATE THE NEW MATRIX WITH NEW ARRAY
+    new_matrix[row_num]=new_list      # UPDATE THE NEW MATRIX WITH NEW ARRAY
    
-    resultant_matrix=new_matrix-old_matrix
-    #
-    # print(resultant_matrix)
-
-    ab=unit_matrix_to_notation(resultant_matrix)
+    resultant_matrix=new_matrix-old_matrix  # Substract old matrix from new matrix 
+ 
+    ab=unit_matrix_to_notation(resultant_matrix)   # find position of 1 or -1 and its sign
+    # ab=[<notation>,<sign>]  
     
     move.append(ab[0])
     sign.append(ab[1])
-#.............................................................................
-    #print(move)
+#........................Determining move type.............................
 
     if len(move)==2 and (move[0]!= move[1]) and sign[0]=="pick" and  sign[1]=="place":
         return ["Normal move ",normal_move()]
@@ -171,10 +136,7 @@ def update_matrix(row_num,new_list):
 
 
 
-
-#print(unit_matrix_to_notation((new_matrix-old_matrix)))
-
-if __name__=="__main__": # for module testing only
+if __name__=="__main__": # for module testing ouly
 
 
     v=update_matrix(1,[0,1,1,1,1,1,1,1])
@@ -186,44 +148,3 @@ if __name__=="__main__": # for module testing only
     print(sign)
     print(v)
     print(move)
-
-
-
-
-
-
-
-'''
-def validate_input(row_num,new_list):
-       # -> This function validates the input give to it
-        #-> row_number must
-        #  be in 1,2,3,4,5,6,7,8 (or)
-        #-> length of new list must be 8
-       # -> and difference of  sum of input_list and new_matrix[row_num] must be 1 of -1
-    
-    #................................................
-    if row_num in range(1,9): # if row number is 1,2,3,4,5,6,7,8 (or)
-        out =True
-    else: 
-        out=False
-        print(f'{row_num} Is Invalid Row number')
-    
-     
-    a=sum(new_list)-np.sum(new_matrix[row_num-1])
-    #................................................
-    if out==True:
-    
-        if len(new_list)==8 and abs(a)==1:
-            out2=True
-        else:
-            out2= False
-            print(f'{new_list} Is a Invalid list ')
-    #................................................
-    if out and out2:
-        return True
-    else:
-        return False
-print(validate_input(9,[0,0,0,0,0,0,0,0]))       
-'''
-
-
