@@ -106,6 +106,15 @@ def castling():
 #.................... En Passant Capture..........................
 def En_Passant_Capture():
     pass
+def En_Passant_Capture(): # this function is write by chat gpt i have now tested yet but this seem to be working 
+    # Check if the move is an En Passant Capture
+    if move[0][1] == 'pick' and move[1][1] == 'place' and abs(ord(move[0][0][0]) - ord(move[1][0][0])) == 1:
+        # Check if the pawn moved two spaces on its initial move
+        if move[0][0][1] == '7' and move[1][0][1] == '5':
+            captured_pawn_pos = chr(ord(move[1][0][0]) + (1 if ord(move[0][0][0]) < ord(move[1][0][0]) else -1)) + '6'
+            return move[0][0] + 'x' + captured_pawn_pos + move[1][0]
+    return None
+
 #.................................................................
 
 #.....................Pawn Promotion..............................
